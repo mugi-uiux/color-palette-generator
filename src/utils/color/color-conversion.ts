@@ -1,13 +1,11 @@
-```typescript
-import { formatHex, modeLch, modeRgb, useMode } from 'culori';
+import { formatHex, modeLch, modeRgb, useMode, converter, parse, wcagContrast } from 'culori';
 import type { Color } from 'culori';
 
-// Define types for our color objects if needed, but culori's Color type is usually sufficient.
-// We will primarily work with Hex strings for UI and LCH/OKLCH for calculations.
+useMode(modeLch);
+useMode(modeRgb);
 
 const toLch = converter('lch');
 const toOklch = converter('oklch');
-const toRgb = converter('rgb');
 
 export const hexToLch = (hex: string) => {
     const color = parse(hex);
