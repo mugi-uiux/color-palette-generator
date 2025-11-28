@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
 import { InputPanel } from './components/input/InputPanel';
 import { PaletteGrid } from './components/palette/PaletteGrid';

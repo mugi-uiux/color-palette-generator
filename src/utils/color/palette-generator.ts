@@ -1,5 +1,5 @@
 import { formatHex, modeLch, useMode } from 'culori';
-import type { Color } from 'culori';
+
 import { hexToLch } from './color-conversion';
 import type { GeneratedPalette } from '../../types';
 

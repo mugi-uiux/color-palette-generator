@@ -1,5 +1,5 @@
 import { wcagContrast, modeLch, useMode, formatHex } from 'culori';
-import type { Color } from 'culori';
+
 import { hexToLch } from './color-conversion';
 
 useMode(modeLch);

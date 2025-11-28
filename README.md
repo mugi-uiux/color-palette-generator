@@ -71,3 +71,4 @@ export default defineConfig([
   },
 ])
 ```
+# color-palette-generator
