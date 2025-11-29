@@ -9,11 +9,10 @@
     "editorType": [
         "figma"
     ],
-    "ui": "dist/index.html",
+    "ui": "ui.html",
     "networkAccess": {
         "allowedDomains": [
-            "https://cdn.jsdelivr.net",
-            "https://cdnjs.cloudflare.com"
+            "https://color-palette-generator-rose.vercel.app"
         ]
     }
 }

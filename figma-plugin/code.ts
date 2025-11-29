@@ -11,7 +11,40 @@ function capitalize(s: string) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function rgbToHex(r: number, g: number, b: number) {
+    const toHex = (n: number) => {
+        const hex = Math.round(n * 255).toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+    };
+    return "#" + toHex(r) + toHex(g) + toHex(b);
+}
+
+function findColorInSelection() {
+    const selection = figma.currentPage.selection;
+    if (selection.length > 0) {
+        for (const node of selection) {
+            if ("fills" in node) {
+                const fills = node.fills as Paint[];
+                for (const paint of fills) {
+                    if (paint.type === "SOLID" && paint.visible !== false) {
+                        return rgbToHex(paint.color.r, paint.color.g, paint.color.b);
+                    }
+                }
+            }
+        }
+    }
+    return null;
+}
+
 figma.ui.onmessage = async (msg) => {
+    console.log("Plugin received message:", msg);
+    if (msg.type === 'ui-ready') {
+        const initialColor = findColorInSelection();
+        if (initialColor) {
+            figma.ui.postMessage({ type: 'load-initial-color', color: initialColor });
+        }
+    }
+
     if (msg.type === 'create-variables') {
         const palette = msg.palette;
 

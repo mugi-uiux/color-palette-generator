@@ -20,6 +20,22 @@ function App() {
   const [palette, setPalette] = useState<GeneratedPalette | null>(null);
 
   useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const msg = event.data.pluginMessage;
+      if (msg && msg.type === 'load-initial-color' && msg.color) {
+        setColors(prev => ({ ...prev, primary: msg.color }));
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    // Notify backend that UI is ready
+    parent.postMessage({ pluginMessage: { type: 'ui-ready' } }, '*');
+
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  useEffect(() => {
     if (colors.primary) {
       // Auto-complete missing colors or ensure they are distinct
       const filledColors = generateMissingColors(colors.primary, colors.secondary, colors.accent);

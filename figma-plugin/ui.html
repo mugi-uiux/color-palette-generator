@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="app-frame" src="https://color-palette-generator-rose.vercel.app/?app=figma"></iframe>
+    <script>
+        // Webアプリからのメッセージを受け取ってFigmaに転送
+        window.addEventListener('message', (event) => {
+            // セキュリティチェック: 信頼できるオリジンからのメッセージか確認
+            if (event.origin !== "https://color-palette-generator-rose.vercel.app") {
+                return;
+            }
+
+            // Figmaにメッセージを転送
+            // pluginMessageプロパティがある場合はそれをそのまま転送
+            if (event.data.pluginMessage) {
+                parent.postMessage({ pluginMessage: event.data.pluginMessage }, '*');
+            }
+        });
+
+        // Figmaからのメッセージを受け取ってWebアプリに転送
+        // Figma -> UI のメッセージハンドリング
+        onmessage = (event) => {
+            const iframe = document.getElementById('app-frame');
+            if (iframe && iframe.contentWindow) {
+                // Figmaからのメッセージは event.data に入ってくる
+                // iframeに転送する際は、ターゲットオリジンを指定
+                iframe.contentWindow.postMessage(event.data, "https://color-palette-generator-rose.vercel.app");
+            }
+        };
+    </script>
+</body>
+
+</html>
