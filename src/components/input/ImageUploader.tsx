@@ -251,8 +251,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onColorsExtracted,
                         <div className="p-4 bg-white rounded-full shadow-sm mb-4 group-hover:scale-110 transition-transform">
                             <Upload className="w-8 h-8 text-zinc-400" />
                         </div>
-                        <p className="mb-2 text-sm text-zinc-600"><span className="font-semibold">クリックしてアップロード</span> またはドラッグ＆ドロップ</p>
-                        <p className="text-xs text-zinc-400">SVG, PNG, JPG, GIF (最大 5MB)</p>
+                        <p className="mb-2 text-sm text-zinc-600"><span className="font-semibold">Figmaでフレームを選択してください</span></p>
+                        <p className="text-xs text-zinc-400">またはクリックして画像のアップロード (SVG, PNG, JPG)</p>
                     </div>
                 )}
                 <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
