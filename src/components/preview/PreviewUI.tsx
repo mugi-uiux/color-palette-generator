@@ -39,7 +39,7 @@ export const PreviewUI: React.FC<PreviewUIProps> = ({ palette }) => {
                 >
                     {/* Sidebar */}
                     <div
-                        className="w-64 flex-shrink-0 border-r flex flex-col"
+                        className="w-56 flex-shrink-0 border-r flex flex-col"
                         style={{ backgroundColor: styles.surface, borderColor: styles.border }}
                     >
                         <div className="p-6 flex items-center gap-2">
@@ -123,7 +123,7 @@ export const PreviewUI: React.FC<PreviewUIProps> = ({ palette }) => {
                             </div>
 
                             {/* Stats Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div className="grid grid-cols-3 gap-3 md:gap-4 mb-8">
                                 {[
                                     { label: '総売上', value: '¥4,523,189', change: '+20.1%', trend: 'up' },
                                     { label: '新規登録', value: '+2,350', change: '+180.1%', trend: 'up' },
@@ -131,12 +131,12 @@ export const PreviewUI: React.FC<PreviewUIProps> = ({ palette }) => {
                                 ].map((stat, i) => (
                                     <div
                                         key={i}
-                                        className="p-6 rounded-xl border shadow-sm"
+                                        className="p-3 md:p-4 rounded-xl border shadow-sm overflow-hidden"
                                         style={{ backgroundColor: styles.surface, borderColor: styles.border }}
                                     >
-                                        <div className="text-sm font-medium mb-2" style={{ color: styles.textMuted }}>{stat.label}</div>
-                                        <div className="text-2xl font-bold mb-1" style={{ color: styles.textMain }}>{stat.value}</div>
-                                        <div className="text-xs" style={{ color: styles.success }}>{stat.change} 先月比</div>
+                                        <div className="text-xs font-medium mb-1 truncate" style={{ color: styles.textMuted }}>{stat.label}</div>
+                                        <div className="text-base md:text-xl font-bold mb-1 truncate" style={{ color: styles.textMain }}>{stat.value}</div>
+                                        <div className="text-[10px] md:text-xs truncate" style={{ color: styles.success }}>{stat.change} 先月比</div>
                                     </div>
                                 ))}
                             </div>
