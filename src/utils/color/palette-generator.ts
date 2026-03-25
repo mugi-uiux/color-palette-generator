@@ -62,9 +62,8 @@ export const generateNeutralScale = (baseColor: string): GeneratedPalette['neutr
     const lch = hexToLch(baseColor);
     if (!lch) return generateScale('#808080');
 
-    // For neutrals, we increase chroma slightly to reflect the primary hue more
-    // User requested "lower saturation" again, so reducing from 0.2/12 to 0.15/6
-    const neutralLch = { ...lch, c: Math.min((lch.c || 0) * 0.15, 6) };
+    // User requested "lower saturation" again, so reducing from 0.15/6 to almost pure gray 0.02/1
+    const neutralLch = { ...lch, c: Math.min((lch.c || 0) * 0.02, 1) };
 
     const createStep = (targetL: number, chromaFactor: number = 1) => {
         return formatHex({

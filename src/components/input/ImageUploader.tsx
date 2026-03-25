@@ -239,7 +239,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onColorsExtracted,
             <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-zinc-200 border-dashed rounded-xl cursor-pointer bg-zinc-50/50 hover:bg-zinc-50 hover:border-zinc-300 transition-all group">
                 {previewUrl ? (
                     <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-xl">
-                        <img src={previewUrl} alt="Preview" className="object-cover w-full h-full opacity-90" />
+                        <img src={previewUrl} alt="Preview" className="object-contain w-full h-full opacity-90 p-4" />
                         {isAnalyzing && (
                             <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
                                 <Loader2 className="w-8 h-8 text-white animate-spin" />
