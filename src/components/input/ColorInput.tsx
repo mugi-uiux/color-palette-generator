@@ -41,12 +41,12 @@ export const ColorInput: React.FC<ColorInputProps> = ({ colors, onChange }) => {
         <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {(['primary', 'secondary', 'accent'] as const).map((role) => (
-                    <div key={role} className="space-y-3">
-                        <label className="block text-sm font-medium text-zinc-700 capitalize flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-zinc-400"></span>
+                    <div key={role} className="space-y-3 min-w-0">
+                        <label className="block text-sm font-medium text-zinc-700 capitalize flex items-center gap-2 truncate">
+                            <span className="w-2 h-2 rounded-full bg-zinc-400 flex-shrink-0"></span>
                             {role} Color
                         </label>
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 min-w-0">
                             <div className="relative flex-shrink-0">
                                 <input
                                     type="color"
@@ -60,7 +60,7 @@ export const ColorInput: React.FC<ColorInputProps> = ({ colors, onChange }) => {
                                 value={localColors[role]}
                                 onChange={(e) => handleChange(role, e.target.value)}
                                 placeholder="#000000"
-                                className="flex-1 rounded-lg border border-zinc-200 px-4 py-2 text-sm font-mono text-zinc-600 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-300"
+                                className="flex-1 min-w-0 w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm font-mono text-zinc-600 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 focus:outline-none transition-all placeholder:text-zinc-300"
                             />
                         </div>
                     </div>
