@@ -18,12 +18,16 @@ function App() {
 
   const [isAccessibleMode, setIsAccessibleMode] = useState(false);
   const [palette, setPalette] = useState<GeneratedPalette | null>(null);
+  const [initialImageUrl, setInitialImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       const msg = event.data.pluginMessage;
       if (msg && msg.type === 'load-initial-color' && msg.color) {
         setColors(prev => ({ ...prev, primary: msg.color }));
+      }
+      if (msg && msg.type === 'load-frame-image' && msg.dataUrl) {
+        setInitialImageUrl(msg.dataUrl);
       }
     };
 
@@ -231,6 +235,7 @@ function App() {
           onColorsChange={setColors}
           isAccessibleMode={isAccessibleMode}
           onAccessibleModeChange={setIsAccessibleMode}
+          initialImageUrl={initialImageUrl}
         />
 
         {palette ? (

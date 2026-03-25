@@ -27,7 +27,7 @@ export default defineConfig({
         })
     ],
     build: {
-        target: 'esnext',
+        target: 'es2017',
         assetsInlineLimit: 100000000,
         chunkSizeWarningLimit: 100000000,
         cssCodeSplit: false,

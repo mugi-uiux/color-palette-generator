@@ -41,10 +41,24 @@
         // Figma -> UI のメッセージハンドリング
         onmessage = (event) => {
             const iframe = document.getElementById('app-frame');
-            if (iframe && iframe.contentWindow) {
-                // Figmaからのメッセージは event.data に入ってくる
-                // iframeに転送する際は、ターゲットオリジンを指定
-                iframe.contentWindow.postMessage(event.data, "https://color-palette-generator-rose.vercel.app");
+            if (!iframe || !iframe.contentWindow) return;
+
+            const pluginMessage = event.data && event.data.pluginMessage;
+
+            // フレーム画像のバイト列はブラウザ側でDataURLに変換してから転送
+            if (pluginMessage && pluginMessage.type === 'load-frame-image' && pluginMessage.bytes) {
+                const blob = new Blob([new Uint8Array(pluginMessage.bytes)], { type: 'image/png' });
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    iframe.contentWindow.postMessage(
+                        { pluginMessage: { type: 'load-frame-image', dataUrl: reader.result } },
+                        'https://color-palette-generator-rose.vercel.app'
+                    );
+                };
+                reader.readAsDataURL(blob);
+            } else {
+                // その他のメッセージはそのまま転送
+                iframe.contentWindow.postMessage(event.data, 'https://color-palette-generator-rose.vercel.app');
             }
         };
     </script>

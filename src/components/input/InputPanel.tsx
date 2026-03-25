@@ -9,13 +9,15 @@ interface InputPanelProps {
     onColorsChange: (colors: { primary: string; secondary: string; accent: string }) => void;
     isAccessibleMode: boolean;
     onAccessibleModeChange: (isAccessible: boolean) => void;
+    initialImageUrl?: string | null;
 }
 
 export const InputPanel: React.FC<InputPanelProps> = ({
     colors,
     onColorsChange,
     isAccessibleMode,
-    onAccessibleModeChange
+    onAccessibleModeChange,
+    initialImageUrl
 }) => {
     const [mode, setMode] = useState<InputMode>('image');
 
@@ -46,7 +48,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
             <div className="p-6">
                 {mode === 'image' ? (
-                    <ImageUploader onColorsExtracted={onColorsChange} />
+                    <ImageUploader onColorsExtracted={onColorsChange} initialImageUrl={initialImageUrl} />
                 ) : (
                     <ColorInput colors={colors} onChange={onColorsChange} />
                 )}

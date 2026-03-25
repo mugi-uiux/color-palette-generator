@@ -39,9 +39,22 @@ function findColorInSelection() {
 figma.ui.onmessage = async (msg) => {
     console.log("Plugin received message:", msg);
     if (msg.type === 'ui-ready') {
-        const initialColor = findColorInSelection();
-        if (initialColor) {
-            figma.ui.postMessage({ type: 'load-initial-color', color: initialColor });
+        const selection = figma.currentPage.selection;
+
+        // 選択されているノードがあれば画像としてエクスポート
+        if (selection.length > 0) {
+            const node = selection[0];
+            try {
+                const bytes = await node.exportAsync({ format: 'PNG', constraint: { type: 'SCALE', value: 0.5 } });
+                // Uint8Array を普通の配列として送る（大きなBase64文字列を避けるため）
+                figma.ui.postMessage({ type: 'load-frame-image', bytes: Array.from(bytes) });
+            } catch (e) {
+                // エクスポートに失敗した場合はフォールバックとして色を取得
+                const initialColor = findColorInSelection();
+                if (initialColor) {
+                    figma.ui.postMessage({ type: 'load-initial-color', color: initialColor });
+                }
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, Loader2 } from 'lucide-react';
 // Actually, I didn't install react-dropzone in the initial step. I'll use native input for now to save a step, or install it.
 // The plan mentioned "react-dropzone (optional)". I'll stick to native for simplicity unless requested.
@@ -12,11 +12,20 @@ import { Upload, Loader2 } from 'lucide-react';
 
 interface ImageUploaderProps {
     onColorsExtracted: (colors: { primary: string; secondary: string; accent: string }) => void;
+    initialImageUrl?: string | null;
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({ onColorsExtracted }) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({ onColorsExtracted, initialImageUrl }) => {
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+    // Figmaからフレーム画像が渡されたら自動で読み込む
+    useEffect(() => {
+        if (initialImageUrl) {
+            setPreviewUrl(initialImageUrl);
+            extractColors(initialImageUrl);
+        }
+    }, [initialImageUrl]);
 
     const extractColors = (imageSrc: string) => {
         setIsAnalyzing(true);
