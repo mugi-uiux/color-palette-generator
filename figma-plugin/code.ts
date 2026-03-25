@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 400, height: 700 });
+figma.showUI(__html__, { width: 800, height: 750 });
 
 function hexToRgb(hex: string) {
     const r = parseInt(hex.slice(1, 3), 16) / 255;
